@@ -26,6 +26,7 @@ provider:
   iamRoleStatements:
     - Effect: Allow
       Action:
+        - dynamodb:Query
         - dynamodb:Scan
         - dynamodb:PutItem
         - dynamodb:GetItem
@@ -36,11 +37,10 @@ provider:
         - s3:PutObject
         - s3:GetObject
       Resource: arn:aws:s3:::${self:provider.environment.IMAGE_S3_BUCKET}/*
-     - Effect: Allow
+    - Effect: Allow
       Action:
         - dynamodb:Query
       Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.TODOS_TABLE}/index/${self:provider.environment.USERID_INDEX}
-
 
 functions:
   Auth:
@@ -53,9 +53,9 @@ functions:
       - http:
           method: get
           path: todos
+          cors: true
 
   # TODO: Configure this function
-  CreateTodos:
   CreateTodo:
     handler: src/lambda/http/createTodo.handler
     events:
@@ -64,7 +64,6 @@ functions:
           path: todos
           cors: true
 
-
   # TODO: Configure this function
   UpdateTodo:
     handler: src/lambda/http/updateTodo.handler
@@ -72,6 +71,7 @@ functions:
       - http:
           method: patch
           path: todos/{todoId}
+          cors: true
 
   # TODO: Configure this function
   DeleteTodo:
@@ -80,6 +80,7 @@ functions:
       - http:
           method: delete
           path: todos/{todoId}
+          cors: true
 
   # TODO: Configure this function
   GenerateUploadUrl:
