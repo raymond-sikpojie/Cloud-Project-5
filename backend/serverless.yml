@@ -21,7 +21,7 @@ provider:
     USERID_INDEX: UserIdIndex
     IMAGE_S3_BUCKET: omon-serverless-todos-${self:provider.stage}
     SIGNED_URL_EXPIRATION: 300
-    AUTH_0_SECRET: ""
+    AUTH_0_SECRET: "RKRnXFALiQas3WN1Mt8lZsBZZrhijNTdgT0tMJ1SclULwR3X8FC2oOrLCIXzGsqM"
 
   iamRoleStatements:
     - Effect: Allow
@@ -43,6 +43,9 @@ provider:
       Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.TODOS_TABLE}/index/${self:provider.environment.USERID_INDEX}
 
 functions:
+  RS256Auth:
+    handler: src/lambda/auth/rs256Auth0Authorizer.handler
+
   Auth:
     handler: src/lambda/auth/auth0Authorizer.handler
 
@@ -94,6 +97,7 @@ functions:
 resources:
   Resources:
     # TODO: Add any necessary AWS resources
+    # Set correct CORS headers incase auth fails
     GatewayResponseDefault4XX:
       Type: AWS::ApiGateway::GatewayResponse
       Properties:
