@@ -118,11 +118,11 @@ resources:
           - AttributeName: userId
             AttributeType: S
         KeySchema:
-          - AttributeName: todoid
+          - AttributeName: todoId
             KeyType: HASH
         BillingMode: PAY_PER_REQUEST
         TableName: ${self:provider.environment.TODOS_TABLE}
-        LocalSecondaryIndexes:
+        GlobalSecondaryIndexes:
           - IndexName: ${self:provider.environment.USERID_INDEX}
             KeySchema:
               - AttributeName: userId
