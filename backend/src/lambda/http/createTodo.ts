@@ -2,10 +2,9 @@ import { APIGatewayProxyHandler, APIGatewayProxyEvent, APIGatewayProxyResult } f
 import * as AWS from 'aws-sdk'
 import 'source-map-support/register'
 import * as uuid from 'uuid'
-import { parseUserId } from '../../auth/utils'
+import { getUserId } from '../utils'
 
 const docClient = new AWS.DynamoDB.DocumentClient()
-
 const todosTable = process.env.TODOS_TABLE
 
 export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
@@ -13,18 +12,21 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
     console.log("EVENT:", event);
 
     const todoId = uuid.v4()
-
+    const userId = getUserId(event)
     const parsedBody = JSON.parse(event.body)
 
-    const authHeader = event.headers.Authorization
-    const authSplit = authHeader.split(" ")
-    const token = authSplit[1]
+    // const authHeader = event.headers.Authorization
+    // const authSplit = authHeader.split(" ")
+    // const token = authSplit[1]
 
-    console.log("test",token)
+    // console.log("test",token)
 
     const item = {
-      todoId: todoId,
-      userId: parseUserId(token),
+      todoId,
+      userId,
+      createdAt: new Date().toISOString(),
+      done: false,
+      attachmentUrl: undefined,
       ...parsedBody
     }
 
