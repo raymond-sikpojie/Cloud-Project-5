@@ -21,7 +21,7 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
 
   const updateTodoParams = {
     TableName: todosTable,
-    Key: { "todoId": todoId },
+    Key: { todoId },
     UpdateExpression: "set #n = :a, dueDate = :b, done = :c",
     ExpressionAttributeValues:{
       ":a": updatedTodo['name'],
@@ -34,16 +34,14 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
     ReturnValues:"UPDATED_NEW"
   }
 
-const runthis = await docClient.update(updateTodoParams).promise()
+  await docClient.update(updateTodoParams).promise()
 
 return {
     statusCode: 201,
     headers: {
         'Access-Control-Allow-Origin': '*'
     },
-    body: JSON.stringify({
-      runthis
-    })
+    body: ""
 }
 }
 
