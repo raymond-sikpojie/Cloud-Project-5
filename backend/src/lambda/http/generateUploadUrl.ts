@@ -10,11 +10,11 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
   const todoId = event.pathParameters.todoId
 
   console.log(todoId)
-  const bucket = process.env.S3_BUCKET
-  const url_exp = process.env.SIGNED_URL_EXPIRATION
-  const todosTable = process.env.TODOS_TABLE
+  const bucket = process.env.IMAGE_S3_BUCKET
+  const url_expiration = process.env.SIGNED_URL_EXPIRATION
+  const todosTable = process.env.TODOS_TABLE 
 
-  const imageId = uuid.v4()
+  const imageId = uuid.v4() 
 
   const s3 = new AWS.S3({
     signatureVersion: 'v4'
@@ -25,7 +25,7 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
   const url = s3.getSignedUrl('putObject',{
     Bucket: bucket,
     Key: imageId,
-    Expires: url_exp
+    Expires: url_expiration
   })
 
   const imageUrl = `https://${bucket}.s3.amazonaws.com/${imageId}`
@@ -54,14 +54,3 @@ await docClient.update(updateUrlOnTodo).promise()
   }
 }
 
-
-// import 'source-map-support/register'
-
-// import { APIGatewayProxyEvent, APIGatewayProxyResult, APIGatewayProxyHandler } from 'aws-lambda'
-
-// export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
-//   const todoId = event.pathParameters.todoId
-
-//   // TODO: Return a presigned URL to upload a file for a TODO item with the provided id
-//   return undefined
-// }

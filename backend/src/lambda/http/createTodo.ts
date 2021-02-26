@@ -15,12 +15,6 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
     const userId = getUserId(event)
     const parsedBody = JSON.parse(event.body)
 
-    // const authHeader = event.headers.Authorization
-    // const authSplit = authHeader.split(" ")
-    // const token = authSplit[1]
-
-    // console.log("test",token)
-
     const item = {
       todoId,
       userId,
@@ -46,20 +40,3 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
     }
 }
 
-
-
-// import { APIGatewayProxyEvent, APIGatewayProxyHandler, APIGatewayProxyResult } from 'aws-lambda'
-// import 'source-map-support/register'
-// import * as AWS from 'aws-sdk'
-// import * as uuid from 'uuid'
-// import { parseUserId } from '../../auth/utils'
-// import { CreateTodoRequest } from '../../requests/CreateTodoRequest'
-
-
-
-// export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
-//   const newTodo: CreateTodoRequest = JSON.parse(event.body)
-
-//   // TODO: Implement creating a new TODO item
-//   return undefined
-// }

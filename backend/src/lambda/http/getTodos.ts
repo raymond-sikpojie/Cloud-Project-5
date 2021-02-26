@@ -1,7 +1,6 @@
 import { APIGatewayProxyHandler, APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda'
 import * as AWS from 'aws-sdk'
 import 'source-map-support/register'
-// import { parseUserId } from '../../auth/utils'
 import { getUserId } from '../utils'
 
 const docClient = new AWS.DynamoDB.DocumentClient()
@@ -12,9 +11,6 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
     
     console.log("EVENT:", event);
 
-    // const authHeader = event.headers.Authorization
-    // const authSplit = authHeader.split(" ")
-    // const userId = parseUserId(authSplit[1])
     const userId = getUserId(event)
     
     const result = await docClient.query({
@@ -41,11 +37,3 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
     }
 }
 
-
-// import 'source-map-support/register'
-
-// import { APIGatewayProxyEvent, APIGatewayProxyResult, APIGatewayProxyHandler } from 'aws-lambda'
-
-// export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
-//   // TODO: Get all TODO items for a current user
-// }
