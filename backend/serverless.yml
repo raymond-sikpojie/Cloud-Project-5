@@ -58,7 +58,7 @@ functions:
           method: get
           path: todos
           cors: true
-          # authorizer: RS256Auth
+          authorizer: RS256Auth
 
   # TODO: Configure this function
   CreateTodo:
@@ -78,7 +78,7 @@ functions:
           method: patch
           path: todos/{todoId}
           cors: true
-          # authorizer: RS256Auth
+          authorizer: RS256Auth
 
   # TODO: Configure this function
   DeleteTodo:
@@ -98,7 +98,7 @@ functions:
           method: post
           path: todos/{todoId}/attachment
           cors: true
-          # authorizer: RS256Auth
+          authorizer: RS256Auth
 
 resources:
   Resources:
