@@ -14,7 +14,7 @@
       },
       "name": {
           "type": "string",
-          "pattern": "^(?!\\s*$).+"
+          "minLength": 1
       },
       "dueDate": {
         "type": "string"
