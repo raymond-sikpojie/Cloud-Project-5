@@ -32,7 +32,7 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
 
   const updateUrlOnTodo = {
     TableName: todosTable,
-    Key: { "todoId": todoId },
+    Key: {todoId },
     UpdateExpression: "set attachmentUrl = :a",
     ExpressionAttributeValues:{
       ":a": imageUrl
