@@ -5,7 +5,9 @@ import { TodoItem } from '../models/TodoItem'
 import { TodoUpdate } from '../models/TodoUpdate'
 import { CreateTodoRequest } from '../requests/CreateTodoRequest'
 import { UpdateTodoRequest } from '../requests/UpdateTodoRequest'
-// import { createLogger } from '../utils/logger'
+import { createLogger } from '../utils/logger'
+
+const logger = createLogger("todo")
 
 const todoAccess = new TodoAccess()
 
@@ -21,7 +23,7 @@ export async function createTodo(userId: string, createTodoRequest: CreateTodoRe
       ...createTodoRequest
     }
   
-    // logger.info(`Creating todo ${todoId} for user ${userId}`, { userId, todoId, todoItem: newItem })
+    logger.info(`Creating new todo for user ${userId}`)
   
     await todoAccess.createTodoItem(item)
   
@@ -29,18 +31,18 @@ export async function createTodo(userId: string, createTodoRequest: CreateTodoRe
   }
 
   export async function getTodos(userId: string): Promise<TodoItem[]> {
-    // logger.info(`Retrieving all todos for user ${userId}`, { userId })
+    logger.info(`Fetching all todos for user ${userId}`)
     return await todoAccess.getTodos(userId)
   }
 
 
   export async function updateTodo(todoId: string, updateTodoRequest: UpdateTodoRequest) {
-    // logger.info(`Updating todo ${todoId} for user ${userId}`, { userId, todoId, todoUpdate: updateTodoRequest })
+    logger.info(`Updating todo ${todoId} for user`)
     return todoAccess.updateTodoItem(todoId, updateTodoRequest as TodoUpdate)
   }
 
 
   export async function deleteTodo(todoId: string) {
-    // logger.info(`Deleting todo ${todoId} for user ${userId}`, { userId, todoId })
+    logger.info(`Deleting todo ${todoId} for user`)
    return todoAccess.deleteTodo(todoId)
   }

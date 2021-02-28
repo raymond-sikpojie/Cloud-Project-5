@@ -2,7 +2,6 @@ import { APIGatewayProxyHandler, APIGatewayProxyEvent, APIGatewayProxyResult } f
 
 import { createTodo } from '../../businessLogic/todo'
 import { CreateTodoRequest } from '../../requests/CreateTodoRequest'
-// import { createLogger } from '../../utils/logger'
 import { getUserId } from '../utils'
 
 
