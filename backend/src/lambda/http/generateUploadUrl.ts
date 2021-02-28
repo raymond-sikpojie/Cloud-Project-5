@@ -30,17 +30,16 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
 
   const imageUrl = `https://${bucket}.s3.amazonaws.com/${imageId}`
 
-  const updateUrlOnTodo = {
+  const updateUrlOnTodoItem = {
     TableName: todosTable,
     Key: {todoId },
-    UpdateExpression: "set attachmentUrl = :a",
+    UpdateExpression: "set attachmentUrl = :url",
     ExpressionAttributeValues:{
-      ":a": imageUrl
+      ":url": imageUrl
   },
-  ReturnValues:"UPDATED_NEW"
   }
 
-await docClient.update(updateUrlOnTodo).promise()
+await docClient.update(updateUrlOnTodoItem).promise()
 
   return {
       statusCode: 201,
@@ -48,7 +47,7 @@ await docClient.update(updateUrlOnTodo).promise()
           'Access-Control-Allow-Origin': '*'
       },
       body: JSON.stringify({
-          iamgeUrl: imageUrl,
+          imageUrl: imageUrl,
           uploadUrl: url
       })
   }
