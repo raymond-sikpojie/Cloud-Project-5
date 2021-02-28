@@ -4,7 +4,9 @@ import { DocumentClient } from 'aws-sdk/clients/dynamodb'
 
 import { TodoItem } from '../models/TodoItem'
 import { TodoUpdate } from '../models/TodoUpdate'
-// import { createLogger } from '../utils/logger'
+import { createLogger } from '../utils/logger'
+
+const logger = createLogger('todosAccess')
 
 const XAWS = AWSXRay.captureAWS(AWS)
 
@@ -17,8 +19,8 @@ export class TodoAccess {
     }
   
     async createTodoItem(todoItem: TodoItem){
-      console.log('Getting all groups')
-  
+      logger.info("Creating a new todo item")
+      
       await this.docClient.put({
         TableName: this.todosTable,
         Item: todoItem
@@ -27,7 +29,7 @@ export class TodoAccess {
     }
 
     async getTodos(userId: string): Promise<TodoItem[]> {
-        // logger.info(`Getting all todos for user ${userId} from ${this.todosTable}`)
+        logger.info("Get all todos from DynamoDB table")
     
         const result = await this.docClient.query({
             TableName : this.todosTable,
@@ -41,15 +43,13 @@ export class TodoAccess {
         }).promise()
     
         const items = result.Items
-    
-        // logger.info(`Found ${items.length} todos for user ${userId} in ${this.todosTable}`)
         
         return items as TodoItem[]
       }
 
     
       async updateTodoItem(todoId: string, todoUpdate: TodoUpdate) {
-        // logger.info(`Updating todo item ${todoId} in ${this.todosTable}`)
+        logger.info("Updating todo item")
     
         await this.docClient.update({
           TableName: this.todosTable,
@@ -70,7 +70,7 @@ export class TodoAccess {
 
 
       async deleteTodo(todoId: string) {
-        // logger.info(`Deleting todo item ${todoId} from ${this.todosTable}`)
+        logger.info("Deleting todo item")
     
         await this.docClient.delete({
           TableName: this.todosTable,
