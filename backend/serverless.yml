@@ -133,6 +133,7 @@ resources:
   Resources:
     # TODO: Add any necessary AWS resources
     # Set correct CORS headers incase auth fails
+
     RequestBodyValidator:
       Type: AWS::ApiGateway::RequestValidator
       Properties:
