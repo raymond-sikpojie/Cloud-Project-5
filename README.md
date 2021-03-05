@@ -1,10 +1,24 @@
 # Serverless Todo Application
 
-This application will allow creating/removing/updating/fetching TODO items. Each TODO item can optionally have an attachment image. Each user only has access to TODO items that he/she has created.
+This application will allow a registered user to create, update, read and delete todo items. An image can be optionally added to each todo item. A user will only have access to todo items that has been created by them.
 
 ## Prerequisites
 
-### Node
+### Node.js
+
+Ensure that Node.js is installed.
+
+### Amazon Web Services
+
+To deploy the application, an AWS account is required.
+
+### Serverless Framework
+
+The application is built and deployed to AWS using Serverless Framework.
+
+### AuthO
+
+User authentication is handled using AuthO
 
 ## Getting Started
 
@@ -14,7 +28,7 @@ This application will allow creating/removing/updating/fetching TODO items. Each
 2. Run `npm install` to install all dependencies
 3. Deploy application to AWS using `sls deploy -v`
 
-### Backend
+### Frontend
 
 1. From the root directory, `cd client`
 2. Run `npm install` to install all dependencies
